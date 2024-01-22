@@ -25,11 +25,11 @@ class Player:
     
     def StartMove(self):
         self.move = 1
-        return f"Ваш ход {self.name}"
+        return f"Your turn {self.name}"
     
     def FinishMove(self):
         self.move = 0
-        return "Ваш ход завершен"
+        return "Your turn is complete"
 
     def GiveHp(self, hp_number: int):
         self.hp += hp_number
@@ -40,78 +40,45 @@ class Player:
 
 
 class ShotGun:
-    rounds = []
+    pellets = []
     damage = -1
-    
-    def ShufflePellets(self, live_rounds: int, blanks: int):
-        self.rounds = [1 for i in range(live_rounds)] + [0 for i in range(blanks)]
-        print(self.rounds)
-        random.shuffle(self.rounds)
+    status = 0
 
-    def Shot(self, user1: Player, user2: Player, user_shotted_name: str):
-        
-        if user1.move:
-            user_walker = user1
-            user_waiter = user2
-        else:
-            user_walker = user2
-            user_waiter = user1 
-        shot = self.rounds.pop()
+    def Status(self):
+        self.status = 1 if len(self.pellets) != 0 else 0
+        return self.status
 
-        if shot and user_walker.name == user_shotted_name:
-            print("ВЫСТРЕЛ, пуля была нормальная")
-            user_walker.GiveHp(self.damage)
-            print(user_walker.FinishMove())
-            print(user_waiter.StartMove())
-        elif shot and user_waiter.name == user_shotted_name: 
-            print("ВЫСТРЕЛ, пуля была нормальная")
-            user_waiter.GiveHp(self.damage)
-            print(user_walker.FinishMove())
-            print(user_waiter.StartMove())
-        elif not shot and user_walker.name == user_shotted_name:
-            print("ВЫСТРЕЛ, пуля была хуевая")
-            pass
-        elif not shot and user_waiter.name == user_shotted_name: 
-            print("ВЫСТРЕЛ, пуля была хуевая")
-            print(user_walker.FinishMove())
-            print(user_waiter.StartMove())
-        else:
-            print("Вы неправильно ввели имя")
-            pass
-        
-        if len(self.rounds) == 0:
-            print("Пули закончились")
-            #
-            user1.Status()
-            user2.Status()
-            #
+    def ShufflePellets(self, live_pellets: int, blanks: int):
+        pellets = [1 for i in range(live_pellets)] + [0 for i in range(blanks)]
+        self.pellets = [pellet for pellet in pellets]
+        random.shuffle(self.pellets)
+        return pellets
 
+    def Pellets(self):
+        return self.pellets
 
-start_hp = 1
+    def Shot(self):
+        if not self.status:
+            print("No pellets in shotgun")
+            return None
+        return self.pellets.pop()
 
-user1 = Player("Player1")
-user1.StartHp(start_hp)
-user2 = Player("Player2")
-user2.StartHp(start_hp)
 shotgun = ShotGun()
-shotgun.ShufflePellets(1, 2)
+print(shotgun.ShufflePellets(2, 1))
+print(shotgun.Pellets())
+print(shotgun.Status())
+print(shotgun.Shot())
 
-if random.randint(0, 1):
-    print(f"Первым начинает {user1.name}")
-    print(user1.StartMove())
-else:
-    print(f"Первым начинает {user2.name}")
-    print(user2.StartMove())
+print(shotgun.Pellets())
+print(shotgun.Status())
+print(shotgun.Shot())
 
-for command in stdin:
-    command = command.rstrip("\n")
-    if command == "shot":
-        print("Введите имя игрока")
-        shotgun.Shot(user1, user2, input())
-    if command == "status":
-        user1.Status()
-        user2.Status()
-    if command == "finish":
-        break
+print(shotgun.Pellets())
+print(shotgun.Status())
+print(shotgun.Shot())
 
-exit()
+print(shotgun.Pellets())
+print(shotgun.Status())
+print(shotgun.Shot())
+
+
