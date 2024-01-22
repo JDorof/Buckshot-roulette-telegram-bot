@@ -15,24 +15,29 @@ class Player:
         '7': None,
         '8': None,
     }
-    move = 0
+    turn = 0
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
-    def StartHp(self, hp_number: int):
-        self.hp = hp_number
+    def StartHp(self, start_hp: int):
+        self.hp = start_hp
+        return self.hp
     
-    def StartMove(self):
-        self.move = 1
-        return f"Your turn {self.name}"
-    
-    def FinishMove(self):
-        self.move = 0
-        return "Your turn is complete"
+    def NextTurn(self):
+        if self.turn:
+            self.turn = 0
+            return self.turn
+        self.turn = 1
+        return self.turn
 
-    def GiveHp(self, hp_number: int):
-        self.hp += hp_number
+    def Heal(self):
+        self.hp += 1
+        return self.hp
+    
+    def Damage(self, damage):
+        self.hp -= damage
+        return self.hp
 
     def Status(self):
         print(f"Name = {self.name};  ", end="")
@@ -41,8 +46,18 @@ class Player:
 
 class ShotGun:
     pellets = []
-    damage = -1
+    damage = 1
+    # trim = 0
     status = 0
+
+    # def Pellets(self):
+    #     return self.pellets
+
+    def ShowPellet(self):
+        if not self.status:
+            print("No pellets in shotgun")
+            return None
+        return self.pellets[-1]
 
     def Status(self):
         self.status = 1 if len(self.pellets) != 0 else 0
@@ -54,31 +69,29 @@ class ShotGun:
         random.shuffle(self.pellets)
         return pellets
 
-    def Pellets(self):
-        return self.pellets
-
     def Shot(self):
         if not self.status:
             print("No pellets in shotgun")
             return None
-        return self.pellets.pop()
+        if self.pellets.pop():
+            return self.damage
+        return 0
 
+    def Trim(self):
+        self.damage = 2
+        # self.trim = 1
+    
+    def RemoveTrim(self):
+        self.damage = 1
+        # self.trim = 0
+
+user1 = Player('p1')
+user2 = Player('p2')
 shotgun = ShotGun()
 print(shotgun.ShufflePellets(2, 1))
-print(shotgun.Pellets())
+# print(shotgun.Pellets())
 print(shotgun.Status())
 print(shotgun.Shot())
 
-print(shotgun.Pellets())
-print(shotgun.Status())
-print(shotgun.Shot())
-
-print(shotgun.Pellets())
-print(shotgun.Status())
-print(shotgun.Shot())
-
-print(shotgun.Pellets())
-print(shotgun.Status())
-print(shotgun.Shot())
 
 
