@@ -17,28 +17,42 @@ pellets_variants = (
 user2.turn = 1
 #===================================# ♡ 9825 | ♥ 9829
 
+
+
 for round in range(3):
     shotgun.ShufflePellets(pellets_variants[round])
+
     while user1.hp != 0 or user2.hp != 0:
         attacker_name = ChangeTurn(user1, user2)
         print(f"It's {attacker_name} turn")
+
         for command in stdin:
             command = command.rstrip("\n")
+
             if command == "help":
                 print("shot status magnifier")
+                continue
+
             elif command == "shot":
                 print("Choose player")
-                # 
+                if Shot(user1, user2, attacker_name, input(), shotgun):
+                    break
+
             elif command == "status":
                 print(GameStatus(user1, user2))
+                continue
+
             elif command == "magnifier":
                 print(shotgun.ShowPellet()) # change
+                continue
+
+            elif command == "saw":
+                print(shotgun.Trim())
+                continue
             
-
-
-
-
         break
+    print(GameStatus())
+    shotgun.RemoveTrim()
     break
 
 

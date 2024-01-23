@@ -73,18 +73,18 @@ class ShotGun:
 
     def Shot(self):
         if not self.status:
-            print("No pellets in shotgun")
-            return None
-        if self.pellets.pop():
-            return self.damage
-        return 0
+            return 0
+        return self.pellets.pop()
+
 
     def Trim(self):
         self.damage = 2
+        return "damage = 2"
         # self.trim = 1
     
     def RemoveTrim(self):
         self.damage = 1
+        return "damage = 1"
         # self.trim = 0
 
 
@@ -106,5 +106,25 @@ def ChangeTurn(user1: Player, user2: Player):
         return user1.name
 
 
-def Shot(attacker_name, target_name, shotgun):
-    pass    
+def Shot(user1: Player, user2: Player, attacker_name: str, target_name: str, shotgun: ShotGun):
+    if user1.name != target_name or user2.name != target_name:
+        print("Incorrect name")
+        return 0
+    if shotgun.Shot():
+        print("BADUM")
+        if user1.name == target_name:
+            user1.Damage(shotgun.damage)
+        elif user2.name == target_name:
+            user2.Damage(shotgun.damage)
+        return 1
+    else:
+        
+        print("BLANK")
+
+
+
+        return 1
+
+
+        return 0
+   
