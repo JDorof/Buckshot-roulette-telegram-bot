@@ -88,8 +88,11 @@ class ShotGun:
         # self.trim = 0
 
 
-def GameStatus():
-    pass
+def GameStatus(user1: Player, user2: Player):
+    hp1 = "♥" * user1.hp
+    hp2 = "♥" * user2.hp
+    line = "="*16
+    return f"{line}\n{user1.name:<8}{user2.name:>8}\n{hp1:<8}{hp2:>8}\n{line}"
 
 
 def ChangeTurn(user1: Player, user2: Player):
