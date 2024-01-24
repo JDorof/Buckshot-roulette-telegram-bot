@@ -1,5 +1,6 @@
 from componets import *
 from sys import stdin
+import random
 import time
 
 user1 = Player("p1")
@@ -18,9 +19,12 @@ user2.turn = 1
 #===================================# ♡ 9825 | ♥ 9829
 
 
+user1.StartHp(3)
+user2.StartHp(3)
+
 
 for round in range(3): # NOT READY 
-    shotgun.ShufflePellets(pellets_variants[round])
+    print(shotgun.ShufflePellets(pellets_variants[round]))
 
     while user1.hp != 0 and user2.hp != 0:
         attacker_name = ChangeTurn(user1, user2)
@@ -49,7 +53,12 @@ for round in range(3): # NOT READY
             elif command == "saw":
                 print(shotgun.Trim())
                 continue
-            
+
+            if not shotgun.Status():
+                id_pellets = random.randint(0, 5)
+                print(shotgun.ShufflePellets(pellets_variants[id_pellets]))
+
+
         
     print(GameStatus(user1, user2))
 
