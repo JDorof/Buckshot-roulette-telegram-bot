@@ -64,6 +64,7 @@ class ShotGun:
         return self.status
 
     def ShufflePellets(self, pellets: tuple):
+        self.status = 1
         live_pellets = pellets[0]
         blanks = pellets[1]
         pellets = [1 for i in range(live_pellets)] + [0 for i in range(blanks)]
