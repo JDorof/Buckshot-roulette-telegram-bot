@@ -19,7 +19,7 @@ user2.turn = 1
 
 
 
-for round in range(3):
+for round in range(3): # NOT READY 
     shotgun.ShufflePellets(pellets_variants[round])
 
     while user1.hp != 0 or user2.hp != 0:
@@ -52,6 +52,7 @@ for round in range(3):
             
         break
     print(GameStatus())
+
     shotgun.RemoveTrim()
     break
 

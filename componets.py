@@ -39,7 +39,7 @@ class Player:
         self.hp -= damage
         return self.hp
 
-    def Status(self):
+    def Status(self): # TODO return f"..."
         print(f"Name = {self.name};  ", end="")
         print(f"HP = {self.hp}")
 
@@ -67,7 +67,7 @@ class ShotGun:
         live_pellets = pellets[0]
         blanks = pellets[1]
         pellets = [1 for i in range(live_pellets)] + [0 for i in range(blanks)]
-        self.pellets = [pellet for pellet in pellets]
+        self.pellets = pellets[:]
         random.shuffle(self.pellets)
         return pellets
 
@@ -88,7 +88,7 @@ class ShotGun:
         # self.trim = 0
 
 
-def GameStatus(user1: Player, user2: Player):
+def GameStatus(user1: Player, user2: Player): # TODO return variable (not full str)
     hp1 = "♥" * user1.hp
     hp2 = "♥" * user2.hp
     line = "="*16
