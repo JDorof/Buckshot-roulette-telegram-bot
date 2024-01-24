@@ -2,8 +2,8 @@ from componets import *
 from sys import stdin
 import time
 
-user1 = Player('p1')
-user2 = Player('p2')
+user1 = Player("p1")
+user2 = Player("p2")
 shotgun = ShotGun()
 
 pellets_variants = (
@@ -22,7 +22,7 @@ user2.turn = 1
 for round in range(3): # NOT READY 
     shotgun.ShufflePellets(pellets_variants[round])
 
-    while user1.hp != 0 or user2.hp != 0:
+    while user1.hp != 0 and user2.hp != 0:
         attacker_name = ChangeTurn(user1, user2)
         print(f"It's {attacker_name} turn")
 
@@ -35,7 +35,7 @@ for round in range(3): # NOT READY
 
             elif command == "shot":
                 print("Choose player")
-                if Shot(user1, user2, attacker_name, input(), shotgun):
+                if Shot(user1, user2, attacker_name, input().rstrip("\n"), shotgun):
                     break
 
             elif command == "status":
@@ -50,8 +50,8 @@ for round in range(3): # NOT READY
                 print(shotgun.Trim())
                 continue
             
-        break
-    print(GameStatus())
+        
+    print(GameStatus(user1, user2))
 
     shotgun.RemoveTrim()
     break

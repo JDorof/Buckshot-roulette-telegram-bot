@@ -108,7 +108,7 @@ def ChangeTurn(user1: Player, user2: Player):
 
 
 def Shot(user1: Player, user2: Player, attacker_name: str, target_name: str, shotgun: ShotGun):
-    if user1.name != target_name or user2.name != target_name:
+    if user1.name != target_name and user2.name != target_name:
         print("Incorrect name")
         return 0
     if shotgun.Shot():
@@ -119,13 +119,15 @@ def Shot(user1: Player, user2: Player, attacker_name: str, target_name: str, sho
             user2.Damage(shotgun.damage)
         return 1
     else:
-        
         print("BLANK")
-
-
-
-        return 1
-
-
-        return 0
+        if user1.name == attacker_name:
+            if user1.name == target_name:
+                return 0
+            elif user2.name == target_name:
+                return 1
+        if user2.name == attacker_name:
+            if user2.name == target_name:
+                return 0
+            elif user1.name == target_name:
+                return 1
    
