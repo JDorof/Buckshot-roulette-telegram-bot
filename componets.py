@@ -77,6 +77,10 @@ class ShotGun:
             return 0
         return self.pellets.pop()
 
+    def SkipPellet(self):
+        if not self.status:
+            return 0
+        return self.pellets.pop()
 
     def Trim(self):
         self.damage = 2

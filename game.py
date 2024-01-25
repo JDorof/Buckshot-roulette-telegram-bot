@@ -33,6 +33,14 @@ for round in range(3): # NOT READY
         for command in stdin:
             command = command.rstrip("\n")
 
+            if not shotgun.Status():
+                id_pellets = random.randint(0, 5)
+                print(shotgun.ShufflePellets(pellets_variants[id_pellets])) 
+
+            # bags with stdin or something
+            # if code from 36str put after alls elifs, it won't work (because if we shot oursefl with blank, it would'n reload shotgun)
+            # if here, you will see pellets after shot, before you can write the name
+
             if command == "help":
                 print("shot status magnifier")
                 continue
@@ -53,16 +61,15 @@ for round in range(3): # NOT READY
             elif command == "saw":
                 print(shotgun.Trim())
                 continue
+            
+            elif command == "beer":
+                print(shotgun.SkipPellet()) 
 
-            if not shotgun.Status():
-                id_pellets = random.randint(0, 5)
-                print(shotgun.ShufflePellets(pellets_variants[id_pellets]))
-
+        shotgun.RemoveTrim()
 
         
     print(GameStatus(user1, user2))
 
-    shotgun.RemoveTrim()
     break
 
 
