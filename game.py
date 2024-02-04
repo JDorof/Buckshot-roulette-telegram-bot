@@ -4,7 +4,7 @@
 
 
 from sympy import use
-from componets import Game
+from components import Game
 
 
 # Тут создаётся игра
